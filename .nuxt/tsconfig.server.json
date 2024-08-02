@@ -108,7 +108,10 @@
         "./vue-router"
       ],
       "#tailwind-config": [
-        "./tailwind"
+        "./tailwind.config"
+      ],
+      "#tailwind-config/*": [
+        "./tailwind.config/*"
       ]
     },
     "lib": [
@@ -128,7 +131,6 @@
   ],
   "exclude": [
     "../node_modules",
-    "../../../node_modules",
     "../node_modules/.pnpm/nuxt@3.12.4_@parcel+watcher@2.4.1_@types+node@22.0.0_ioredis@5.4.1_magicast@0.3.4_rollup@4.19_sgaxjhqjqzrx2zyehuoscyit6a/node_modules/nuxt/node_modules",
     "../dist"
   ]
