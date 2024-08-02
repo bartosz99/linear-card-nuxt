@@ -1,0 +1,18 @@
+{
+  "@vite/client": {
+    "prefetch": true,
+    "isEntry": true,
+    "file": "@vite/client",
+    "css": [],
+    "module": true,
+    "resourceType": "script"
+  },
+  "/Users/bartoszciesla/git/linear-card-nuxt/node_modules/.pnpm/nuxt@3.12.4_@parcel+watcher@2.4.1_@types+node@22.0.0_ioredis@5.4.1_magicast@0.3.4_rollup@4.19_sgaxjhqjqzrx2zyehuoscyit6a/node_modules/nuxt/dist/app/entry.js": {
+    "resourceType": "script",
+    "module": true,
+    "prefetch": true,
+    "preload": true,
+    "isEntry": true,
+    "file": "/Users/bartoszciesla/git/linear-card-nuxt/node_modules/.pnpm/nuxt@3.12.4_@parcel+watcher@2.4.1_@types+node@22.0.0_ioredis@5.4.1_magicast@0.3.4_rollup@4.19_sgaxjhqjqzrx2zyehuoscyit6a/node_modules/nuxt/dist/app/entry.js"
+  }
+}
