@@ -6,12 +6,15 @@ type Props = {
 
 defineProps<Props>();
 
+const rotateX = ref('0deg');
+const rotateY = ref('0deg');
 const mouseX = ref('0%');
 const mouseY = ref('0%');
 const backgroundX = ref('50%');
 const backgroundY = ref('50%');
 
 const opacity = ref(0);
+const isTransitioning = ref(false);
 
 const handleCursorMove = (e: any) => {
   const mouseXPercent = (e.offsetX / e.srcElement.offsetWidth) * 100;
@@ -20,18 +23,45 @@ const handleCursorMove = (e: any) => {
   const backgroundXPercent = 50 + (mouseXPercent / 100) * 20;
   const backgroundYPercent = 50 + (mouseYPercent / 100) * 20;
 
+  const rotateXDegrees = 6 - (mouseXPercent / 100) * 12;
+  const rotateYDegrees = -11 + (mouseYPercent / 100) * 22;
+
   mouseX.value = mouseXPercent.toFixed(2) + '%';
   mouseY.value = mouseYPercent.toFixed(2) + '%';
 
   backgroundX.value = backgroundXPercent.toFixed(2) + '%';
   backgroundY.value = backgroundYPercent.toFixed(2) + '%';
+
+  rotateX.value = rotateXDegrees.toFixed(2) + 'deg';
+  rotateY.value = rotateYDegrees.toFixed(2) + 'deg';
+};
+
+const handleMouseEnter = () => {
+  opacity.value = 0.6;
+  isTransitioning.value = true;
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 300);
+};
+
+const handleMouseLeave = () => {
+  opacity.value = 0;
+  isTransitioning.value = true;
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 300);
+  rotateX.value = '0deg';
+  rotateY.value = '0deg';
 };
 </script>
 
 <template>
   <div
     class="card relative border border-slate-900 min-w-80 w-80 overflow-hidden cursor-pointer onHover"
+    :class="{ 'transition-transform duration-300': isTransitioning }"
     :style="{
+      '--r-x': rotateX,
+      '--r-y': rotateY,
       '--m-x': mouseX,
       '--m-y': mouseY,
       '--bg-x': backgroundX,
@@ -39,8 +69,8 @@ const handleCursorMove = (e: any) => {
       '--opacity': opacity
     }"
     @mousemove="handleCursorMove($event)"
-    @mouseenter="opacity = 0.6"
-    @mouseleave="opacity = 0"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
   >
     <div class="parent">
       <div>
@@ -57,16 +87,15 @@ const handleCursorMove = (e: any) => {
   border-radius: 48px;
 }
 
+.card:hover {
+  transform: perspective(800px) rotateY(var(--r-x)) rotateX(var(--r-y));
+}
+
 .parent {
   display: grid;
   will-change: transform;
   transform-origin: center center;
-  transition-duration: ;
-  transition-timing-function: ;
-  transition-delay: ;
-  transition-behavior: ;
   transition-property: transform;
-  transform: rotateY(var(--r-x)) rotateX(var(--r-y));
   border-radius: var(--radius);
   border: 1px solid var(--color-border-primary);
 }
@@ -145,7 +174,6 @@ const handleCursorMove = (e: any) => {
     var(--bg-x) var(--bg-y) / 300% no-repeat;
   background-blend-mode: hue, hue, hue, overlay;
   background: var(--pattern), var(--rainbow), var(--diagonal), var(--shade);
-  /* background: var(--pattern); */
 }
 
 .secondLayer::after {
