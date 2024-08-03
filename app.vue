@@ -7,6 +7,9 @@ useHead({
   link: [{ rel: 'icon', href: '/favicon.svg' }],
   htmlAttrs: {
     lang: 'en'
+  },
+  bodyAttrs: {
+    style: 'background-color: #000212'
   }
 });
 

@@ -7,7 +7,7 @@ type Props = {
 defineProps<Props>();
 
 const opacity = ref(0);
-const isTransitioning = ref(false);
+const isTransitioning = ref(true);
 const mouseX = ref(0);
 const mouseY = ref(0);
 
@@ -21,12 +21,16 @@ const handleCursorMove = (e: any) => {
   mouseY.value = Number(((e.offsetY / e.srcElement.offsetHeight) * 100).toFixed(2));
 };
 
-const handleTransitionEnabling = (newOpacity: number) => {
-  opacity.value = newOpacity;
-  isTransitioning.value = true;
+const handleMouseEnter = () => {
+  opacity.value = 0.6;
   setTimeout(() => {
     isTransitioning.value = false;
   }, 300);
+};
+
+const handleMouseLeave = () => {
+  opacity.value = 0;
+  isTransitioning.value = true;
 };
 </script>
 
@@ -44,8 +48,8 @@ const handleTransitionEnabling = (newOpacity: number) => {
       '--r-y': `${rotateY}deg`
     }"
     @mousemove="handleCursorMove($event)"
-    @mouseenter="handleTransitionEnabling(0.6)"
-    @mouseleave="handleTransitionEnabling(0)"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
   >
     <div class="content-wrapper">
       <img :src="imageSource" :alt="imageAlt" />
