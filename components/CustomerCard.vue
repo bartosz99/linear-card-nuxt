@@ -6,10 +6,10 @@ type Props = {
 
 defineProps<Props>();
 
-const mouseX = ref(0);
-const mouseY = ref(0);
 const opacity = ref(0);
 const isTransitioning = ref(false);
+const mouseX = ref(0);
+const mouseY = ref(0);
 
 const backgroundX = computed(() => 50 + (mouseX.value / 100) * 20);
 const backgroundY = computed(() => 50 + (mouseY.value / 100) * 20);
@@ -35,22 +35,20 @@ const handleTransitionEnabling = (newOpacity: number) => {
     class="card relative border border-slate-900 min-w-80 w-80 overflow-hidden cursor-pointer"
     :class="{ 'card-transition': isTransitioning }"
     :style="{
-      '--r-x': `${rotateX}deg`,
-      '--r-y': `${rotateY}deg`,
+      '--opacity': opacity,
       '--m-x': `${mouseX}%`,
       '--m-y': `${mouseY}%`,
       '--bg-x': `${backgroundX}%`,
       '--bg-y': `${backgroundY}%`,
-      '--opacity': opacity
+      '--r-x': `${rotateX}deg`,
+      '--r-y': `${rotateY}deg`
     }"
     @mousemove="handleCursorMove($event)"
     @mouseenter="handleTransitionEnabling(0.6)"
     @mouseleave="handleTransitionEnabling(0)"
   >
     <div class="content-wrapper">
-      <div>
-        <img :src="imageSource" :alt="imageAlt" />
-      </div>
+      <img :src="imageSource" :alt="imageAlt" />
       <div class="cursor-animation" />
       <div class="card-animation" />
     </div>
