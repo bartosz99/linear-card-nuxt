@@ -6,6 +6,7 @@ type Props = {
 
 defineProps<Props>();
 
+let timeout: any;
 const opacity = ref(0);
 const isTransitioning = ref(true);
 const mouseX = ref(0);
@@ -23,7 +24,7 @@ const handleCursorMove = (e: any) => {
 
 const handleMouseEnter = () => {
   opacity.value = 0.6;
-  setTimeout(() => {
+  timeout = setTimeout(() => {
     isTransitioning.value = false;
   }, 300);
 };
@@ -31,6 +32,7 @@ const handleMouseEnter = () => {
 const handleMouseLeave = () => {
   opacity.value = 0;
   isTransitioning.value = true;
+  clearTimeout(timeout);
 };
 </script>
 
